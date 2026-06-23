@@ -153,18 +153,31 @@ export default function BookingSection() {
               <label className="block text-cream/55 text-xs tracking-wide uppercase mb-2.5">
                 Destination
               </label>
-              <select
-                value={form.destination}
-                onChange={set('destination')}
-                className={`${inputClass('destination')} bg-space-mid cursor-pointer`}
-              >
-                <option value="">Choisir une époque…</option>
-                {destinations.map((d) => (
-                  <option key={d.id} value={d.id}>
-                    {d.name} — {d.price}
-                  </option>
-                ))}
-              </select>
+              <div className="relative">
+                <select
+                  value={form.destination}
+                  onChange={set('destination')}
+                  className={`w-full appearance-none bg-space-mid border rounded-xl px-4 py-3 pr-10
+                             text-cream text-sm cursor-pointer focus:outline-none transition-colors
+                             [color-scheme:dark] ${
+                               errors.destination
+                                 ? 'border-red-500/60 focus:border-red-400/60'
+                                 : 'border-white/10 focus:border-gold/50'
+                             }`}
+                >
+                  <option value="" className="bg-space-mid text-cream/50">Choisir une époque…</option>
+                  {destinations.map((d) => (
+                    <option key={d.id} value={d.id} className="bg-space-mid text-cream">
+                      {d.name} — {d.price}
+                    </option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-cream/40">
+                  <svg width="12" height="7" viewBox="0 0 12 7" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M1 1l5 5 5-5"/>
+                  </svg>
+                </div>
+              </div>
               {errors.destination && (
                 <p className="text-red-400/80 text-xs mt-1">{errors.destination}</p>
               )}
@@ -175,19 +188,26 @@ export default function BookingSection() {
               <label className="block text-cream/55 text-xs tracking-wide uppercase mb-2.5">
                 Voyageurs
               </label>
-              <select
-                value={form.travelers}
-                onChange={set('travelers')}
-                className="w-full bg-space-mid border border-white/10 rounded-xl px-4 py-3
-                           text-cream text-sm focus:outline-none focus:border-gold/50
-                           transition-colors cursor-pointer"
-              >
-                {[1, 2, 3, 4, 5, 6].map((n) => (
-                  <option key={n} value={n}>
-                    {n} personne{n > 1 ? 's' : ''}
-                  </option>
-                ))}
-              </select>
+              <div className="relative">
+                <select
+                  value={form.travelers}
+                  onChange={set('travelers')}
+                  className="w-full appearance-none bg-space-mid border border-white/10 rounded-xl
+                             px-4 py-3 pr-10 text-cream text-sm focus:outline-none focus:border-gold/50
+                             transition-colors cursor-pointer [color-scheme:dark]"
+                >
+                  {[1, 2, 3, 4, 5, 6].map((n) => (
+                    <option key={n} value={n} className="bg-space-mid text-cream">
+                      {n} personne{n > 1 ? 's' : ''}
+                    </option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-cream/40">
+                  <svg width="12" height="7" viewBox="0 0 12 7" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M1 1l5 5 5-5"/>
+                  </svg>
+                </div>
+              </div>
             </div>
 
             {/* Date */}
