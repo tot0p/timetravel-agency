@@ -16,7 +16,7 @@ export const destinations: Destination[] = [
     price: '4 500 €',
     duration: '7 jours',
     color: '#4a9eff',
-    imageUrl: '/images/paris-1889.png',
+    imageUrl: `${import.meta.env.BASE_URL}images/paris-1889.png`,
   },
   {
     id: 'cretace',
@@ -33,7 +33,7 @@ export const destinations: Destination[] = [
     price: '8 900 €',
     duration: '4 jours',
     color: '#22c55e',
-    imageUrl: '/images/cretace.png',
+    imageUrl: `${import.meta.env.BASE_URL}images/cretace.png`,
   },
   {
     id: 'florence-1504',
@@ -50,7 +50,7 @@ export const destinations: Destination[] = [
     price: '6 200 €',
     duration: '5 jours',
     color: '#f59e0b',
-    imageUrl: '/images/florence-1504.png',
+    imageUrl: `${import.meta.env.BASE_URL}images/florence-1504.png`,
   },
 ]
 
