@@ -16,8 +16,7 @@ export const destinations: Destination[] = [
     price: '4 500 €',
     duration: '7 jours',
     color: '#4a9eff',
-    imageUrl:
-      'https://images.unsplash.com/photo-1431274172761-fca41d930114?w=900&q=80&fit=crop',
+    imageUrl: '/images/paris-1889.png',
   },
   {
     id: 'cretace',
@@ -34,8 +33,7 @@ export const destinations: Destination[] = [
     price: '8 900 €',
     duration: '4 jours',
     color: '#22c55e',
-    imageUrl:
-      'https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=900&q=80&fit=crop',
+    imageUrl: '/images/cretace.png',
   },
   {
     id: 'florence-1504',
@@ -52,8 +50,7 @@ export const destinations: Destination[] = [
     price: '6 200 €',
     duration: '5 jours',
     color: '#f59e0b',
-    imageUrl:
-      'https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=900&q=80&fit=crop',
+    imageUrl: '/images/florence-1504.png',
   },
 ]
 
