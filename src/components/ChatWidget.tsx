@@ -29,34 +29,52 @@ const MOCK_RESPONSES = [
 ]
 
 let mockIdx = 0
+let apiFailed = false
 
-async function callMistral(history: { role: string; content: string }[]): Promise<string> {
+function getMock(): string {
+  const response = MOCK_RESPONSES[mockIdx % MOCK_RESPONSES.length]
+  mockIdx++
+  return response
+}
+
+async function callMistral(
+  history: { role: string; content: string }[]
+): Promise<{ text: string; demo: boolean }> {
   const apiKey = import.meta.env.VITE_MISTRAL_API_KEY
 
-  if (!apiKey) {
-    await new Promise((r) => setTimeout(r, 600 + Math.random() * 800))
-    const response = MOCK_RESPONSES[mockIdx % MOCK_RESPONSES.length]
-    mockIdx++
-    return response
+  if (!apiKey || apiFailed) {
+    await new Promise((r) => setTimeout(r, 500 + Math.random() * 600))
+    return { text: getMock(), demo: true }
   }
 
-  const res = await fetch('https://api.mistral.ai/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: 'mistral-small-latest',
-      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...history],
-      temperature: 0.75,
-      max_tokens: 280,
-    }),
-  })
+  try {
+    const res = await fetch('https://api.mistral.ai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'mistral-small-latest',
+        messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...history],
+        temperature: 0.75,
+        max_tokens: 280,
+      }),
+    })
 
-  if (!res.ok) throw new Error(`Mistral API ${res.status}`)
-  const data = await res.json()
-  return (data.choices[0].message.content as string).trim()
+    if (!res.ok) {
+      apiFailed = true
+      await new Promise((r) => setTimeout(r, 400))
+      return { text: getMock(), demo: true }
+    }
+
+    const data = await res.json()
+    return { text: (data.choices[0].message.content as string).trim(), demo: false }
+  } catch {
+    apiFailed = true
+    await new Promise((r) => setTimeout(r, 400))
+    return { text: getMock(), demo: true }
+  }
 }
 
 const WELCOME: Message = {
@@ -72,6 +90,7 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([WELCOME])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [isDemoMode, setIsDemoMode] = useState(!import.meta.env.VITE_MISTRAL_API_KEY)
   const endRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -102,23 +121,14 @@ export default function ChatWidget() {
 
     try {
       const history = updated.map((m) => ({ role: m.role, content: m.content }))
-      const reply = await callMistral(history)
+      const { text, demo } = await callMistral(history)
+      if (demo) setIsDemoMode(true)
       setMessages((prev) => [
         ...prev,
         {
           id: Date.now().toString(),
           role: 'assistant',
-          content: reply,
-          timestamp: new Date(),
-        },
-      ])
-    } catch {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Date.now().toString(),
-          role: 'assistant',
-          content: "Désolé, une erreur s'est produite. Veuillez réessayer.",
+          content: text,
           timestamp: new Date(),
         },
       ])
@@ -251,9 +261,11 @@ export default function ChatWidget() {
                 </button>
               </div>
               <p className="text-cream/15 text-xs text-center mt-2">
-                {import.meta.env.VITE_MISTRAL_API_KEY
-                  ? 'Propulsé par Mistral AI'
-                  : 'Mode démo — Ajoutez VITE_MISTRAL_API_KEY dans .env'}
+                {isDemoMode
+                  ? apiFailed
+                    ? '⚠ Service indisponible — mode démo activé'
+                    : 'Mode démo actif'
+                  : 'Propulsé par Mistral AI'}
               </p>
             </div>
           </motion.div>
