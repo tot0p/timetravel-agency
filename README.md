@@ -83,8 +83,8 @@ src/
 ## 👥 Équipe
 
 - Thomas LEMAITRE
-- Membre 2
-- Membre 3
+- Axel Sénécal
+- Luca Morgado
 - Membre 4
 
 ---
