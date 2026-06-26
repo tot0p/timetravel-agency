@@ -102,7 +102,7 @@ export default function Footer() {
         {/* Groupe */}
         <div className="mt-6 pt-6 border-t border-white/5">
           <p className="text-cream/15 text-xs text-center tracking-wide">
-            Membres du groupe : Thomas LEMAITRE · Axel Sénécal · Luca Morgado · Membre 4
+            Membres du groupe : Thomas LEMAITRE · Axel Sénécal · Luca Morgado
           </p>
         </div>
       </div>

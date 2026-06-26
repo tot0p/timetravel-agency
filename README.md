@@ -85,7 +85,6 @@ src/
 - Thomas LEMAITRE
 - Axel Sénécal
 - Luca Morgado
-- Membre 4
 
 ---
 
