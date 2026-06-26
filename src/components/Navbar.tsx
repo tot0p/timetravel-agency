@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useSpring } from 'framer-motion'
 
 const navLinks = [
   { label: 'Accueil', href: '#hero' },
@@ -9,6 +9,8 @@ const navLinks = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 })
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60)
@@ -25,12 +27,17 @@ export default function Navbar() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 overflow-hidden ${
         scrolled
           ? 'glass border-b border-gold/10 shadow-xl shadow-black/30'
           : 'bg-transparent'
       }`}
     >
+      {/* Scroll progress bar */}
+      <motion.div
+        style={{ scaleX, transformOrigin: 'left' }}
+        className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-gold/60 via-gold to-gold/60"
+      />
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <button

@@ -69,25 +69,44 @@ export default function BookingSection() {
 
       <div className="max-w-2xl mx-auto">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16"
-        >
-          <p className="text-gold/65 text-xs tracking-[0.35em] uppercase mb-5">
+        <div className="text-center mb-16">
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-gold/65 text-xs tracking-[0.35em] uppercase mb-5"
+          >
             Commencer l'aventure
-          </p>
-          <h2 className="font-serif font-bold text-4xl md:text-5xl text-cream mb-6">
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="font-serif font-bold text-4xl md:text-5xl text-cream mb-6"
+          >
             Réservation
-          </h2>
-          <div className="w-24 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6" />
-          <p className="text-cream/45 text-base">
+          </motion.h2>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+            style={{ transformOrigin: 'center' }}
+            className="w-24 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6"
+          />
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="text-cream/45 text-base"
+          >
             Remplissez ce formulaire et notre équipe vous contactera dans les 24 heures pour
             confirmer votre voyage.
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
         {/* Form card */}
         <motion.form

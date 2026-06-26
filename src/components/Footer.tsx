@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
 
 const navLinks = [
   { label: 'Accueil', href: '#hero' },
@@ -8,7 +9,19 @@ const navLinks = [
 
 const destinations = ['Paris 1889', 'Crétacé −65M', 'Florence 1504']
 
+const colVariants = {
+  hidden: { opacity: 0, y: 32 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] },
+  }),
+}
+
 export default function Footer() {
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
+
   const scrollTo = (href: string) => {
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
   }
@@ -16,9 +29,15 @@ export default function Footer() {
   return (
     <footer className="relative border-t border-white/5 bg-space-dark py-20 px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div ref={ref} className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
-          <div className="md:col-span-2">
+          <motion.div
+            custom={0}
+            variants={colVariants}
+            initial="hidden"
+            animate={inView ? 'visible' : 'hidden'}
+            className="md:col-span-2"
+          >
             <div className="flex items-center gap-3 mb-5">
               <div className="w-10 h-10 rounded-full bg-gold/10 border border-gold/40 flex items-center justify-center">
                 <span className="text-gold font-serif font-bold">T</span>
@@ -37,10 +56,15 @@ export default function Footer() {
             >
               Réserver un voyage
             </button>
-          </div>
+          </motion.div>
 
           {/* Navigation */}
-          <div>
+          <motion.div
+            custom={1}
+            variants={colVariants}
+            initial="hidden"
+            animate={inView ? 'visible' : 'hidden'}
+          >
             <p className="text-gold/60 text-xs tracking-[0.25em] uppercase mb-6">Navigation</p>
             <ul className="space-y-3">
               {navLinks.map((l) => (
@@ -54,10 +78,15 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Destinations */}
-          <div>
+          <motion.div
+            custom={2}
+            variants={colVariants}
+            initial="hidden"
+            animate={inView ? 'visible' : 'hidden'}
+          >
             <p className="text-gold/60 text-xs tracking-[0.25em] uppercase mb-6">Destinations</p>
             <ul className="space-y-3">
               {destinations.map((d) => (
@@ -71,7 +100,7 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         </div>
 
         {/* Divider */}
