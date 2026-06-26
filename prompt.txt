@@ -1,0 +1,11 @@
+fait moi le projet le suject est passé , tu es le manager d'un équipe d'ia nésite pas à faire tournér des ia en simultané
+fait moi le github action et init moi le repo et push
+juste attention dans le formulaire le style du drop down est pas terrible corrige moi ça
+change les images par celle ci stp
+c'est les 3 dernière image dans le fichier téléchargement https://tot0p.github.io/timetravel-agency/
+problème sur le déploiment avec les images par contre
+met membre 2 , axel sénécal , membre 3 luca morgado
+revérifie par rapport au sujet si tout est bon ?
+mais une sécurité si le chatbot à plus de token ou autre
+et retire le membre 4
+ajoute des annimations au scroll
