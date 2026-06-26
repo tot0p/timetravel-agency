@@ -91,3 +91,36 @@ src/
 ## 📄 Licence
 
 Projet pédagogique — M1/M2 Digital & IA — Ynov Campus
+
+---
+
+## 💭 Réflexion sur le processus
+
+### Approche adoptée
+
+Ce projet a été entièrement construit selon une approche **"vibe coding"** assistée par IA. L'ensemble de l'architecture, du code et des choix techniques ont été générés et itérés avec **Claude Sonnet 4.6 via Claude Code**, utilisé comme véritable co-pilote de développement plutôt que comme simple outil de complétion.
+
+### Ce que l'IA a apporté
+
+L'IA a permis de **compresser radicalement le temps de développement** : une webapp React complète (composants, animations Framer Motion, intégration API, CI/CD GitHub Actions, déploiement GitHub Pages) qui aurait nécessité plusieurs jours de travail classique a été produite en quelques heures.
+
+Les apports concrets :
+- **Génération de l'architecture** complète dès le départ (structure de fichiers, types TypeScript, design system)
+- **Cohérence visuelle** maintenue automatiquement sur tous les composants grâce au contexte global conservé par l'IA
+- **Débogage proactif** : l'IA a anticipé des problèmes comme le path de base pour GitHub Pages (`VITE_BASE_URL`) ou la gestion des erreurs API Mistral avant qu'ils ne causent des régressions
+- **Parallélisation** : plusieurs fichiers écrits simultanément via des appels d'outils en parallèle, impossible à reproduire manuellement
+
+### Limites et apprentissages
+
+L'expérience a aussi mis en lumière des **limites importantes** :
+
+- **L'IA ne remplace pas le jugement** : chaque suggestion de code a nécessité une validation humaine. Des décisions comme le choix du thème visuel, la structure du quiz ou l'UX du chatbot restaient des décisions d'équipe.
+- **Les actions interactives restent manuelles** : l'authentification GitHub CLI (`gh auth login`) a illustré qu'un LLM ne peut pas se substituer à l'utilisateur pour les actions nécessitant une interaction humaine authentifiée.
+- **Le contexte a une limite** : sur les longues sessions, la compréhension globale du projet par l'IA nécessite un résumé structuré pour maintenir la cohérence.
+- **La revue critique reste essentielle** : certains bugs subtils (slash manquant dans l'URL, fallback chatbot incomplet) n'ont été détectés qu'à l'usage réel.
+
+### Réflexion sur le rôle de l'ingénieur IA
+
+Ce projet illustre une réalité qui s'impose dans notre domaine : **le développeur assisté par IA n'écrit plus du code ligne par ligne, il orchestre, valide et itère**. Le vrai savoir-faire se déplace vers la capacité à formuler des intentions précises, à détecter les erreurs dans le code généré, et à maintenir une vision d'ensemble que l'IA seule ne peut pas avoir.
+
+L'IA est un multiplicateur de productivité exceptionnel — à condition de savoir ce qu'on veut construire.
